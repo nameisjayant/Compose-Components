@@ -34,6 +34,17 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        // Robolectric needs merged resources to render the README GIFs in RecordComponentGifs.
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    // Set by scripts/record-gifs.sh; RecordComponentGifs is skipped without it.
+    providers.gradleProperty("gifDir").orNull?.let { systemProperty("gifDir", it) }
+    // Robolectric's SDK 36 sandbox reaches into JDK internals that newer JDKs no longer export.
+    jvmArgs("--add-exports=java.base/jdk.internal.access=ALL-UNNAMED")
 }
 
 dependencies {
@@ -47,6 +58,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     testImplementation(libs.junit)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.robolectric)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
