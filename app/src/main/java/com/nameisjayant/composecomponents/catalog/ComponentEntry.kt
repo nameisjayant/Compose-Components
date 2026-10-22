@@ -46,8 +46,8 @@ enum class ComponentEntry(
     ),
     ColorPicker(
         title = "Color Picker",
-        description = "Hue wheel, swatches and alpha.",
+        description = "Wheel, ring or square picker with alpha, hex input, swatches and a dialog.",
         icon = AppIcons.Drop,
-        available = false,
+        available = true,
     ),
 }

@@ -34,4 +34,17 @@
     <string name="cctl_state_active">In progress</string>
     <string name="cctl_state_upcoming">Upcoming</string>
     <string name="cctl_state_error">Failed</string>
+
+    <!-- ComposeColorPicker -->
+    <string name="cccp_color">Color</string>
+    <string name="cccp_hue">Hue</string>
+    <string name="cccp_saturation">Saturation</string>
+    <string name="cccp_brightness">Brightness</string>
+    <string name="cccp_alpha">Opacity</string>
+    <string name="cccp_hex">Hex color code</string>
+    <string name="cccp_original_color">Original color</string>
+    <!-- e.g. "210°" -->
+    <string name="cccp_degrees">%1$d°</string>
+    <!-- e.g. "75%" -->
+    <string name="cccp_percent">%1$d%%</string>
 </resources>

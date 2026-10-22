@@ -177,6 +177,47 @@ LazyColumn {
 
 Horizontal timelines line their tracks up however tall the content above them is, and right-to-left layouts mirror everything. `key` keeps each step's animations when items are added or moved. Lines and pulses animate in the draw phase.
 
+### ComposeColorPicker
+
+A full color picker: a hue/saturation/brightness area in one of three styles, then an alpha slider, a preview, a hex field and preset swatches. It works in HSV, so dragging to gray or black and back keeps the hue.
+
+```kotlin
+// State-driven: read or set state.color any time
+val state = rememberComposeColorPickerState(initialColor = Color(0xFF3D5AFE))
+ComposeColorPicker(
+    state = state,
+    style = ColorPickerStyle.Ring,
+    originalColor = Color(0xFF3D5AFE),               // preview shows before / after
+    onColorChangeFinished = { recents.add(it) },
+)
+
+// Or a plain value / callback pair
+ComposeColorPicker(color = color, onColorChange = { color = it })
+
+// In a dialog
+ComposeColorPickerDialog(
+    onDismissRequest = { show = false },
+    title = { Text("Pick a color") },
+    confirmButton = { TextButton(onClick = { save(state.color) }) { Text("OK") } },
+) {
+    ComposeColorPicker(state, Modifier.padding(horizontal = 24.dp))
+}
+```
+
+| Feature | How |
+| --- | --- |
+| Styles | `style`: `ColorPickerStyle.Wheel` (hue/saturation disc + brightness slider), `Ring` (hue ring around a saturation/brightness square), `Square` (saturation/brightness panel + hue slider) |
+| Sections | `showAlpha`, `showPreview`, `showHexField`, `originalColor` (split preview, tap to go back), `swatches` (`ComposeColorPickerDefaults.Swatches` by default, empty for none) |
+| Callbacks | `onColorChange` on every drag step, `onColorChangeFinished(color)` when a finger lifts, a swatch is tapped or a hex code is entered |
+| Hex input | Shows `RRGGBB` (or `AARRGGBB` with alpha); accepts `RGB`, `ARGB`, `RRGGBB`, `AARRGGBB`, with or without `#`; codes without alpha keep the current alpha |
+| Sizing | `thumbSize`, `sliderHeight`, `ringWidth`, `panelShape`, `swatchSize`, `spacing`; the picker fills the width its `modifier` gives it |
+| Parts | Every piece is public and stateless (`hsvColor` + `onHsvColorChange`): `HueSaturationWheel`, `HueRingPanel`, `SaturationValuePanel`, `HueSlider`, `SaturationSlider`, `BrightnessSlider`, `AlphaSlider`, `ColorPreview`, `ColorHexField`, `ColorSwatches` |
+| Color model | `HsvColor(hue, saturation, value, alpha)` with `toColor()`, `toArgb()`, `copy()` and `HsvColor.from(color, previous)` |
+| Theming | `ComposeColorPickerDefaults.colors(...)` (from `MaterialTheme`), `accentColors(accent)`, `colors.copy(...)` |
+| Accessibility | Sliders are adjustable ("Hue, 210°", "Opacity, 80%"), panels read the hex code, swatches are radio buttons named by their hex code |
+
+State survives configuration changes and process death, hue included.
+
 ## Project structure
 
 | Module | Purpose |
