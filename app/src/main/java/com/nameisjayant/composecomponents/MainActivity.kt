@@ -32,6 +32,7 @@ import com.nameisjayant.composecomponents.datepicker.DatePickerDemoScreen
 import com.nameisjayant.composecomponents.otpinput.OtpInputDemoScreen
 import com.nameisjayant.composecomponents.ratingbar.RatingBarDemoScreen
 import com.nameisjayant.composecomponents.ui.theme.ComposeComponentsTheme
+import com.nameisjayant.composecomponents.wheelpicker.WheelPickerDemoScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +87,7 @@ private fun ComponentDemo(entry: ComponentEntry, isDark: Boolean, onToggleTheme:
         ComponentEntry.DatePicker -> DatePickerDemoScreen(isDark, onToggleTheme, onBack)
         ComponentEntry.OtpInput -> OtpInputDemoScreen(isDark, onToggleTheme, onBack)
         ComponentEntry.RatingBar -> RatingBarDemoScreen(isDark, onToggleTheme, onBack)
+        ComponentEntry.WheelPicker -> WheelPickerDemoScreen(isDark, onToggleTheme, onBack)
         // Not built yet; the catalog doesn't open these.
         else -> CatalogScreen(isDark = isDark, onToggleTheme = onToggleTheme, onOpen = {})
     }

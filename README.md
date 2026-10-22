@@ -106,6 +106,42 @@ ComposeOtpInput(
 
 Cells always run left to right, also in right-to-left layouts, since codes are read that way.
 
+### ComposeWheelPicker
+
+A scrolling wheel for picking one item from a list: numbers, times, months, anything. **Drag** or **fling** it and it snaps so one row rests on the selection line; **tap** a row to spin to it.
+
+```kotlin
+// Plain index state
+var month by rememberSaveable { mutableIntStateOf(0) }
+ComposeWheelPicker(
+    items = months,
+    selectedIndex = month,
+    onSelectedIndexChange = { month = it },    // called once the wheel comes to rest
+)
+
+// Or a state object: live selection while it turns, and spinning from code
+val minutes = rememberComposeWheelPickerState(initialIndex = 30)
+ComposeWheelPicker(items = (0..59).map { "%02d".format(it) }, state = minutes, cyclic = true)
+minutes.selectedIndex                          // follows the wheel live
+scope.launch { minutes.animateScrollToIndex(0) }
+```
+
+| Feature | How |
+| --- | --- |
+| Items | Any `List<T>`, labelled by `itemLabel`; the list may change (e.g. days in a month) and the wheel keeps its item, or the last one if the list got shorter |
+| Looping | `cyclic = true` wraps the list so the wheel spins endlessly; scrolling from code takes the short way round |
+| Layout | `visibleItemCount` (odd), `itemHeight`; width from `modifier` (defaults to `ComposeWheelPickerDefaults.Width`) |
+| Look | `style` — `WheelPickerStyle.Wheel` (rows curve round a drum) or `Flat`, or `WheelPickerStyle(curved, outerAlpha, outerScale)`; `fadeEdges`; `textStyle` / `selectedTextStyle` |
+| Selection indicator | `selectionIndicator` slot — `ComposeWheelPickerDefaults.SelectionBand()` (default), `SelectionLines()`, your own, or `null` |
+| Disabled items | `isItemEnabled = { index -> ... }`: those rows are dimmed and the wheel moves on to the nearest enabled one |
+| Input | `enabled`, `selectOnTap`, `flingBehavior` |
+| Theming | `ComposeWheelPickerDefaults.colors(...)` (from `MaterialTheme`), `accentColors(accent)`, `colors.copy(...)` |
+| Custom rows | `itemContent = { item: WheelPickerItem<T> -> ... }` draws each row from its state (`index`, `value`, `isSelected`, `isEnabled`); rows still curve and fade, and get the right `LocalContentColor` |
+| Haptics | A light tick each time a row passes the selection line (`hapticFeedbackEnabled`) |
+| Accessibility | One adjustable control: screen readers read `contentDescription` and the selected label, and swipe up/down to change it |
+
+To make one picker out of several wheels (hours : minutes : AM/PM), put them in a `Row` with `selectionIndicator = null` and draw a single `ComposeWheelPickerDefaults.SelectionBand()` behind the row, one `itemHeight` tall. Rows move in the draw phase, so the wheel only recomposes when the selected row changes.
+
 ## Project structure
 
 | Module | Purpose |

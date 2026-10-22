@@ -22,9 +22,9 @@ enum class ComponentEntry(
     ),
     WheelPicker(
         title = "Wheel Picker",
-        description = "Scrollable wheel for numbers, times and lists.",
+        description = "Snapping wheel for numbers, times and lists, curved or flat, looping and multi-wheel.",
         icon = AppIcons.Wheel,
-        available = false,
+        available = true,
     ),
     OtpInput(
         title = "OTP Input",
