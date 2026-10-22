@@ -48,6 +48,32 @@ state.selectedDates     // Multiple
 
 Dates use the library's own `CalendarDate` / `CalendarMonth` (no `java.time`, so no desugaring needed on minSdk 24). Convert with `toEpochMillisUtc()` / `CalendarDate.ofEpochMillisUtc(...)` and format with `date.format("yMMMd")`. The state survives configuration changes.
 
+### ComposeRatingBar
+
+A row of stars (or hearts, circles, any `Shape` or `Painter`) for showing and picking a rating. **Tap** an item to rate, or **drag** across the bar and the rating follows your finger.
+
+```kotlin
+var rating by rememberSaveable { mutableFloatStateOf(3f) }
+
+ComposeRatingBar(
+    rating = rating,
+    onRatingChange = { rating = it },          // null = read-only
+    stepSize = 0.5f,                           // 1 = whole, 0.5 = halves, 0 = free
+    colors = ComposeRatingBarDefaults.accentColors(ComposeRatingBarDefaults.Gold),
+)
+```
+
+| Feature | How |
+| --- | --- |
+| Input | Tap, horizontal drag, TalkBack adjust (`setProgress`); `allowClear` (tap the current rating to reset), `minRating`, `enabled`, `onRatingChangeFinished` |
+| Steps | `stepSize` — `1f`, `0.5f`, `0f` (any value); fractional ratings draw partly filled items |
+| Items | `maxRating`, `itemSize`, `itemSpacing`, `shape` (`StarShape`, `SharpStarShape`, `HeartShape`, `starShape(points, innerRadiusRatio, roundness)`, `CircleShape`…), or `painter` for icons |
+| Theming | `ComposeRatingBarDefaults.colors(...)` (from `MaterialTheme`), `accentColors(accent)`, `outlinedColors()` + `borderWidth = OutlineWidth`, `colors.copy(...)` |
+| Animation | Items fill in a staggered cascade with a soft bounce, the tapped item pops with a fading halo, the item under your finger lifts while dragging. Tune with `RatingBarAnimation(staggerMillis, waveScale, popScale, dragScale, showHalo)` or turn off with `RatingBarAnimation.None` |
+| Haptics | Ticks as the rating changes under the finger (`hapticFeedbackEnabled`) |
+
+Right-to-left layouts fill from the right. Animations run in the draw phase, so the bar doesn't recompose while it moves.
+
 ## Project structure
 
 | Module | Purpose |

@@ -6,6 +6,13 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -134,6 +141,33 @@ fun SwitchRow(
             onCheckedChange = null,
             enabled = enabled,
             colors = SwitchDefaults.colors(uncheckedTrackColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        )
+    }
+}
+
+/** A round color swatch with a label; the selected one gets a ring. */
+@Composable
+fun AccentSwatch(label: String, color: Color, selected: Boolean, onClick: () -> Unit) {
+    Column(
+        Modifier.selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            Modifier
+                .size(44.dp)
+                .border(
+                    width = 2.dp,
+                    color = if (selected) color else Color.Transparent,
+                    shape = CircleShape,
+                )
+                .padding(5.dp)
+                .background(color, CircleShape),
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

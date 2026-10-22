@@ -34,9 +34,9 @@ enum class ComponentEntry(
     ),
     RatingBar(
         title = "Rating Bar",
-        description = "Star rating with half steps and custom shapes.",
+        description = "Tap or drag to rate, with half and free steps, custom shapes and smooth animations.",
         icon = AppIcons.Star,
-        available = false,
+        available = true,
     ),
     Timeline(
         title = "Timeline",

@@ -1,7 +1,6 @@
 package com.nameisjayant.composecomponents.datepicker
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -40,7 +37,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nameisjayant.components.datepicker.CalendarDate
@@ -56,6 +52,7 @@ import com.nameisjayant.components.datepicker.WeekDay
 import com.nameisjayant.components.datepicker.and
 import com.nameisjayant.components.datepicker.format
 import com.nameisjayant.components.datepicker.rememberComposeDatePickerState
+import com.nameisjayant.composecomponents.ui.components.AccentSwatch
 import com.nameisjayant.composecomponents.ui.components.CardShape
 import com.nameisjayant.composecomponents.ui.components.DemoCard
 import com.nameisjayant.composecomponents.ui.components.DemoTopBar
@@ -243,7 +240,7 @@ fun DatePickerDemoScreen(
                     ) {
                         PickerAccent.entries.forEach { option ->
                             AccentSwatch(
-                                option = option,
+                                label = option.label,
                                 color = (if (isDark) option.dark else option.light) ?: MaterialTheme.colorScheme.primary,
                                 selected = accent == option,
                                 onClick = { accent = option },
@@ -342,32 +339,6 @@ private fun SelectionSummary(state: ComposeDatePickerState) {
             }
             TextButton(onClick = state::clearSelection, enabled = state.hasSelection) { Text("Clear") }
         }
-    }
-}
-
-@Composable
-private fun AccentSwatch(option: PickerAccent, color: Color, selected: Boolean, onClick: () -> Unit) {
-    Column(
-        Modifier.selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Box(
-            Modifier
-                .size(44.dp)
-                .border(
-                    width = 2.dp,
-                    color = if (selected) color else Color.Transparent,
-                    shape = CircleShape,
-                )
-                .padding(5.dp)
-                .background(color, CircleShape),
-        )
-        Spacer(Modifier.height(6.dp))
-        Text(
-            text = option.label,
-            style = MaterialTheme.typography.labelMedium,
-            color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
-        )
     }
 }
 
