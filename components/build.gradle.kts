@@ -57,7 +57,7 @@ mavenPublishing {
         name.set("Compose Components")
         description.set("Extra Jetpack Compose components that complement Material 3.")
         inceptionYear.set("2026")
-        url.set("https://github.com/nameisjayant/compose-components")
+        url.set("https://github.com/nameisjayant/Compose-Components")
         licenses {
             license {
                 name.set("The Apache License, Version 2.0")
@@ -73,9 +73,9 @@ mavenPublishing {
             }
         }
         scm {
-            url.set("https://github.com/nameisjayant/compose-components")
-            connection.set("scm:git:git://github.com/nameisjayant/compose-components.git")
-            developerConnection.set("scm:git:ssh://git@github.com/nameisjayant/compose-components.git")
+            url.set("https://github.com/nameisjayant/Compose-Components")
+            connection.set("scm:git:git://github.com/nameisjayant/Compose-Components.git")
+            developerConnection.set("scm:git:ssh://git@github.com/nameisjayant/Compose-Components.git")
         }
     }
 }
