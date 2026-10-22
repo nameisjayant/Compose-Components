@@ -5,11 +5,11 @@
 <h1 align="center">Compose Components</h1>
 
 <p align="center">
-  <b>The Jetpack Compose components Material 3 doesn't ship, built to feel like they always belonged there.</b><br/>
-  Date picker · Wheel picker · OTP input · Rating bar · Timeline · Color picker
+  <b>The Jetpack Compose components Material 3 doesn't ship, built to feel like they always belonged there.</b>
 </p>
 
 <p align="center">
+  <a href="https://central.sonatype.com/artifact/io.github.nameisjayant/compose-components"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.nameisjayant/compose-components?label=Maven%20Central&color=4285F4" /></a>
   <img alt="Jetpack Compose" src="https://img.shields.io/badge/Jetpack%20Compose-Material%203-4338CA?logo=jetpackcompose&logoColor=white" />
   <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white" />
   <img alt="minSdk 24" src="https://img.shields.io/badge/minSdk-24-3DDC84?logo=android&logoColor=white" />
@@ -18,13 +18,13 @@
 
 <p align="center">
   <a href="https://nameisjayant.github.io/Compose-Components/">
-    <img alt="Read the docs" src="https://img.shields.io/badge/📖%20Read%20the%20docs-nameisjayant.github.io%2FCompose--Components-4285F4?style=for-the-badge" />
+    <img alt="Read the docs" src="https://img.shields.io/badge/📖%20Read%20the%20docs-4285F4?style=for-the-badge" />
   </a>
 </p>
 
 <p align="center">
   Full documentation, with examples and every parameter for each component:<br/>
-  <b><a href="https://nameisjayant.github.io/Compose-Components/">nameisjayant.github.io/Compose-Components</a></b>
+  <b><a href="https://nameisjayant.github.io/Compose-Components/">Read the docs</a></b>
 </p>
 
 ---
@@ -51,7 +51,7 @@ The library is published to Maven Central. Make sure `mavenCentral()` is in your
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("io.github.nameisjayant:compose-components:<version>")
+    implementation("io.github.nameisjayant:compose-components:0.1.0")
 }
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 
 ```toml
 [versions]
-composeComponents = "<version>"
+composeComponents = "0.1.0"
 
 [libraries]
 compose-components = { group = "io.github.nameisjayant", name = "compose-components", version.ref = "composeComponents" }
