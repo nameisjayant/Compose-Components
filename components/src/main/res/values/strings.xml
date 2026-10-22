@@ -28,4 +28,10 @@
     <!-- ComposeOtpInput -->
     <!-- e.g. "4 of 6 entered" -->
     <string name="ccotp_state_description">%1$d of %2$d entered</string>
+
+    <!-- ComposeTimeline -->
+    <string name="cctl_state_completed">Completed</string>
+    <string name="cctl_state_active">In progress</string>
+    <string name="cctl_state_upcoming">Upcoming</string>
+    <string name="cctl_state_error">Failed</string>
 </resources>

@@ -40,9 +40,9 @@ enum class ComponentEntry(
     ),
     Timeline(
         title = "Timeline",
-        description = "Vertical steps connected by a track.",
+        description = "Steps joined by a line that fills as you progress: vertical, horizontal or alternating, lazy too.",
         icon = AppIcons.Timeline,
-        available = false,
+        available = true,
     ),
     ColorPicker(
         title = "Color Picker",

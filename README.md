@@ -142,6 +142,41 @@ scope.launch { minutes.animateScrollToIndex(0) }
 
 To make one picker out of several wheels (hours : minutes : AM/PM), put them in a `Row` with `selectionIndicator = null` and draw a single `ComposeWheelPickerDefaults.SelectionBand()` behind the row, one `itemHeight` tall. Rows move in the draw phase, so the wheel only recomposes when the selected row changes.
 
+### ComposeTimeline
+
+Steps joined by a line: order tracking, onboarding progress, a history of events. Each step gets an **indicator** on the line, **content** beside it and, optionally, **opposite content** on the other side (a time, say). The line is drawn as reached up to the furthest step that has been reached, and grows into the next step when it is.
+
+```kotlin
+ComposeTimeline(
+    items = orderSteps,
+    stepState = { index, _ -> TimelineStepState.forProgress(index, currentStep) },
+    pendingLineStyle = TimelineLineStyle.Dashed,          // line after the current step
+    oppositeContent = { step -> Text(step.item.time) },
+) { step ->
+    Text(step.item.title)
+}
+
+// Long timelines: one lazy item per step, mixed with other items
+LazyColumn {
+    item { Header() }
+    timelineItems(events, key = { it.id }) { step -> EventCard(step.item) }
+}
+```
+
+| Feature | How |
+| --- | --- |
+| Step states | `stepState` returns `TimelineStepState.Completed`, `Active`, `Upcoming` or `Error` per step; `TimelineStepState.forProgress(index, currentIndex)` derives them from a current step |
+| Layout | `orientation` (`Vertical` / `Horizontal`), `contentSide` (`Start`, `End`, `Alternate`), `indicatorAlignment` (`Start` / `Center`), `indicatorSize`, `itemSpacing`, `contentSpacing`, `lineGap`, `oppositeContentFraction`, `itemWidth` (horizontal; `Dp.Unspecified` shares the width) |
+| Indicators | `indicator` slot with `StatusIndicator(state)` (default: ring, pulsing dot, check, exclamation), `NumberIndicator(text, state)`, `IconIndicator(icon, state)`, or your own; the slot's scope carries the timeline's `colors`, `indicatorSize` and `animation` |
+| Line | `lineStyle` (reached part) and `pendingLineStyle` (the rest): `TimelineLineStyle.Solid`, `Dashed`, `Dotted`, or `TimelineLineStyle(width, dashLength, gapLength, cap)` |
+| Content | `content` and `oppositeContent` get a `TimelineStep` (`index`, `item`, `state`, `count`, `contentSide`, `isFirst`, `isLast`) |
+| Lazy | `LazyListScope.timelineItems(...)` for a `LazyColumn`, same parameters (vertical) |
+| Theming | `ComposeTimelineDefaults.colors(...)` (from `MaterialTheme`), `accentColors(accent)`, `colors.copy(...)` |
+| Animation | Steps fade in one after another, the line fills into a newly reached step (and draws back), indicators blend between states, the active step pulses. Tune with `TimelineAnimation(revealItems, staggerMillis, lineFillMillis, pulseActive)` or turn off with `TimelineAnimation.None` |
+| Accessibility | Each step reads as one item with its state ("Completed", "In progress"...) and its place in the list |
+
+Horizontal timelines line their tracks up however tall the content above them is, and right-to-left layouts mirror everything. `key` keeps each step's animations when items are added or moved. Lines and pulses animate in the draw phase.
+
 ## Project structure
 
 | Module | Purpose |
