@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ComposeDatePicker -->
+    <string name="ccdp_title_single">Select date</string>
+    <string name="ccdp_title_range">Select range</string>
+    <string name="ccdp_title_multiple">Select dates</string>
+    <string name="ccdp_headline_none">No date selected</string>
+    <string name="ccdp_headline_none_multiple">No dates selected</string>
+    <string name="ccdp_range_start">Start</string>
+    <string name="ccdp_range_end">End</string>
+    <plurals name="ccdp_headline_count">
+        <item quantity="one">%d date</item>
+        <item quantity="other">%d dates</item>
+    </plurals>
+    <string name="ccdp_previous_month">Previous month</string>
+    <string name="ccdp_next_month">Next month</string>
+    <string name="ccdp_switch_to_year">Choose year</string>
+    <string name="ccdp_switch_to_day">Choose day</string>
+    <string name="ccdp_today">Today</string>
+    <string name="ccdp_range_start_label">Range start</string>
+    <string name="ccdp_range_end_label">Range end</string>
+    <string name="ccdp_in_range_label">In selected range</string>
+</resources>
