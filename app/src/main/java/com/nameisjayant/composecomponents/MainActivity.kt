@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import com.nameisjayant.composecomponents.catalog.CatalogScreen
 import com.nameisjayant.composecomponents.catalog.ComponentEntry
 import com.nameisjayant.composecomponents.datepicker.DatePickerDemoScreen
+import com.nameisjayant.composecomponents.otpinput.OtpInputDemoScreen
 import com.nameisjayant.composecomponents.ratingbar.RatingBarDemoScreen
 import com.nameisjayant.composecomponents.ui.theme.ComposeComponentsTheme
 
@@ -83,6 +84,7 @@ private fun ComponentsApp(isDark: Boolean, onToggleTheme: () -> Unit) {
 private fun ComponentDemo(entry: ComponentEntry, isDark: Boolean, onToggleTheme: () -> Unit, onBack: () -> Unit) {
     when (entry) {
         ComponentEntry.DatePicker -> DatePickerDemoScreen(isDark, onToggleTheme, onBack)
+        ComponentEntry.OtpInput -> OtpInputDemoScreen(isDark, onToggleTheme, onBack)
         ComponentEntry.RatingBar -> RatingBarDemoScreen(isDark, onToggleTheme, onBack)
         // Not built yet; the catalog doesn't open these.
         else -> CatalogScreen(isDark = isDark, onToggleTheme = onToggleTheme, onOpen = {})

@@ -74,6 +74,38 @@ ComposeRatingBar(
 
 Right-to-left layouts fill from the right. Animations run in the draw phase, so the bar doesn't recompose while it moves.
 
+### ComposeOtpInput
+
+A one-time-code field split into cells. Typing fills the cells one by one, backspace clears them, and **pasting** or **SMS autofill** drops a whole code in at once. Characters the input doesn't accept, such as the dash in `482-913`, are skipped.
+
+```kotlin
+var code by rememberSaveable { mutableStateOf("") }
+
+ComposeOtpInput(
+    value = code,
+    onValueChange = { code = it },
+    onComplete = { viewModel.verify(it) },     // called when the last cell is filled
+    length = 6,
+    isError = wrongCode,                       // red cells + a shake
+    cellStyle = OtpCellStyle.Outlined,         // Outlined | Filled | Underlined
+    groupSize = 3,                             // 123 – 456
+)
+```
+
+| Feature | How |
+| --- | --- |
+| Input | `length`, `inputType` (`Digits`, `Letters`, `Alphanumeric`, `Any`), custom `charFilter`, `uppercase`, `enabled`, `readOnly`, `autoFocus`, `clearFocusOnComplete` (closes the keyboard), `keyboardType`, `imeAction`, `keyboardActions` |
+| Paste and autofill | A pasted code replaces the old one; the field reports itself as an SMS one-time code to autofill services |
+| Masking | `mask`, `maskChar`, `revealMillis` (briefly shows the character just typed) |
+| Cells | `cellStyle`, `cellSize` (`Dp.Unspecified` width shares the row's width), `cellSpacing`, `cellShape` (`CircleCellShape` for round cells), `borderWidth`, `focusedBorderWidth`, `textStyle`, `placeholder`, `showCursor` |
+| Groups | `groupSize` + `separator` |
+| Theming | `ComposeOtpInputDefaults.colors(style, ...)` (from `MaterialTheme`), `accentColors(accent, style)`, `colors.copy(...)` |
+| Custom cells | `cellContent = { cell: OtpCell -> ... }` draws each cell from its state (`char`, `text`, `isActive`, `isFilled`, `isError`), e.g. PIN dots |
+| Animation | New characters slide in and the cell pops, the cursor blinks, the row shakes on error. Tune with `OtpInputAnimation(slideInText, popScale, blinkCursor, shakeOnError, shakeDistance)` or turn off with `OtpInputAnimation.None` |
+| Haptics | A confirm tick when the code is complete and a buzz on error (`hapticFeedbackEnabled`) |
+
+Cells always run left to right, also in right-to-left layouts, since codes are read that way.
+
 ## Project structure
 
 | Module | Purpose |

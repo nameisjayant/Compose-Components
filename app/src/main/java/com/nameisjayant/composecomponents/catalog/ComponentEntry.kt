@@ -28,9 +28,9 @@ enum class ComponentEntry(
     ),
     OtpInput(
         title = "OTP Input",
-        description = "Segmented code field with paste and auto-advance.",
+        description = "Segmented code field with paste, SMS autofill, masking, groups and error shake.",
         icon = AppIcons.Pin,
-        available = false,
+        available = true,
     ),
     RatingBar(
         title = "Rating Bar",
