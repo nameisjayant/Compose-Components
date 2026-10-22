@@ -17,13 +17,14 @@
 </p>
 
 <p align="center">
-  <a href="#-installation">Installation</a> ·
-  <a href="#-composedatepicker">Date picker</a> ·
-  <a href="#-composewheelpicker">Wheel picker</a> ·
-  <a href="#-composeotpinput">OTP input</a> ·
-  <a href="#-composeratingbar">Rating bar</a> ·
-  <a href="#-composetimeline">Timeline</a> ·
-  <a href="#-composecolorpicker">Color picker</a>
+  <a href="https://nameisjayant.github.io/Compose-Components/">
+    <img alt="Read the docs" src="https://img.shields.io/badge/📖%20Read%20the%20docs-nameisjayant.github.io%2FCompose--Components-4285F4?style=for-the-badge" />
+  </a>
+</p>
+
+<p align="center">
+  Full documentation, with examples and every parameter for each component:<br/>
+  <b><a href="https://nameisjayant.github.io/Compose-Components/">nameisjayant.github.io/Compose-Components</a></b>
 </p>
 
 ---
